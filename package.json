@@ -1,0 +1,10 @@
+{
+  "name": "corrida-dos-amigos",
+  "version": "1.0.0",
+  "description": "Corrida dos Amigos: kart 3D com multijogador online",
+  "main": "server.js",
+  "private": true,
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" },
+  "dependencies": { "ws": "^8.18.0" }
+}
