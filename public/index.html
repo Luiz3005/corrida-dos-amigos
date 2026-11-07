@@ -264,8 +264,8 @@ body.touch #speed{bottom:auto;top:calc(300px + env(safe-area-inset-top,0px));fon
 .actor .ground{position:absolute;bottom:-1.5%;left:50%;width:70%;height:5%;transform:translateX(-50%);border-radius:50%;background:#0007;filter:blur(.3cqw)}
 .actor .spr{position:relative;height:100%;width:auto;max-width:none;filter:drop-shadow(0 .3cqw .2cqw #000b)}
 .actor.off .spr{opacity:.45;filter:grayscale(.7)}
-.actor .tag{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;white-space:nowrap;filter:drop-shadow(0 2px 3px #000a)}
-.actor .nick{display:block;max-width:14cqw;overflow:hidden;text-overflow:ellipsis;padding:.25em .8em;border:1px solid var(--c);border-radius:12px;background:#140e22ed;font-size:1cqw;font-weight:900;color:#fff}
+.actor .tag{position:absolute;left:50%;top:101%;z-index:2;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;white-space:nowrap;filter:drop-shadow(0 2px 3px #000a)}
+.actor .nick{display:block;max-width:16cqw;overflow:hidden;text-overflow:ellipsis;padding:.25em .8em;border:1px solid var(--c);border-radius:12px;background:#140e22ed;font-size:1.15cqw;font-weight:900;color:#fff}
 .actor.me .nick{background:#3a2a08;border-color:#ffd179}
 .actor .sub{font-weight:900;color:var(--c);font-size:.78cqw;text-shadow:0 2px 2px #000;margin-top:.25em}
 .actor.ready .nick{box-shadow:0 0 1.3cqw #44c38f88;border-color:#70ffbc}
@@ -1617,7 +1617,7 @@ function frame(ts) {
    ========================================================= */
 const MAX_ROOM = 6;
 // sala do pacote "Os Improváveis Kart": 6 lugares em pé diante dos bancos (percentuais do cenário 1672×941)
-const LOBBY_SPOTS = [{ x: 14.3, y: 84.2, size: 30.2 }, { x: 27.8, y: 82.5, size: 29.9 }, { x: 40.2, y: 80.9, size: 29.5 }, { x: 61.1, y: 80.9, size: 29.5 }, { x: 73.5, y: 82.5, size: 29.9 }, { x: 87.2, y: 84.2, size: 30.2 }];
+const LOBBY_SPOTS = [{ x: 13.5, y: 90, size: 41 }, { x: 27.5, y: 88.5, size: 38.5 }, { x: 39, y: 87.5, size: 34 }, { x: 62.5, y: 87.5, size: 34 }, { x: 74, y: 88.5, size: 38.5 }, { x: 87.5, y: 90, size: 41 }];
 const LOBBY_SCALE = { pegrande: 1.04, libelula: .98, jiujitsu: 1.02, mariposa: 1.05, valdumiru: 1, saci: 1, majing: 1, mae: 1.01 };
 const NET = { ws: null, me: null, key: null, name: '', room: null, host: false, inRace: false, sendT: 0, wantCode: null, retry: 0, closing: false, startTimer: null };
 function netKey() { try { let k = localStorage.getItem('cda_netkey'); if (!k || !/^[a-z0-9]{16,40}$/.test(k)) { k = Array.from(crypto.getRandomValues(new Uint8Array(12)), b => b.toString(36).padStart(2, '0')).join('').slice(0, 24); localStorage.setItem('cda_netkey', k); } return k; } catch (e) { return NET.key || (NET.key = Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2)); } }
