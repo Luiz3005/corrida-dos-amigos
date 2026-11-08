@@ -37,10 +37,11 @@ const server = http.createServer((req, res) => {
 const rooms = new Map(); // código -> sala
 const rid = n => Array.from({ length: n }, () => 'abcdefghjkmnpqrstuvwxyz23456789'[Math.floor(Math.random() * 31)]).join('');
 const cleanName = s => String(s || '').replace(/[\u0000-\u001f\u007f​-‏‪-‮⁦-⁩]/g, '').replace(/\s+/g, ' ').trim().slice(0, 16) || 'Piloto';
+const TRACK_IDS = ['saci', 'oeste'];
 function newCode() { for (let i = 0; i < 200; i++) { const c = String(1000 + Math.floor(Math.random() * 9000)); if (!rooms.has(c)) return c; } return null; }
 function makeRoom() {
   const code = newCode(); if (!code) return null;
-  const room = { code, players: new Map(), phase: 'lobby', host: null, startAt: 0, startTimer: null, raceTimer: null, overTimer: null, firstFin: 0, emptySince: 0, grid: null };
+  const room = { code, players: new Map(), phase: 'lobby', host: null, startAt: 0, startTimer: null, raceTimer: null, overTimer: null, firstFin: 0, emptySince: 0, grid: null, track: 'saci' };
   rooms.set(code, room); return room;
 }
 const connected = room => [...room.players.values()].filter(p => p.ws);
@@ -53,10 +54,10 @@ function pickHost(room) {
 function publicState(room, forKey) {
   const me = room.players.get(forKey);
   return {
-    t: 'room', code: room.code, phase: room.phase, you: me ? me.id : null,
+    t: 'room', code: room.code, phase: room.phase, track: room.track, you: me ? me.id : null,
     host: room.players.get(room.host) ? room.players.get(room.host).id : null,
     startsIn: room.startAt ? Math.max(0, room.startAt - Date.now()) : 0,
-    players: [...room.players.values()].sort((a, b) => a.slot - b.slot).map(p => ({ id: p.id, name: p.name, c: p.c, slot: p.slot, ready: p.ready, on: !!p.ws, fin: p.fin || 0, racing: !!p.racing })),
+    players: [...room.players.values()].sort((a, b) => a.slot - b.slot).map(p => ({ id: p.id, name: p.name, c: p.c, slot: p.slot, ready: p.ready, on: !!p.ws, fin: p.fin || 0, racing: !!p.racing, voice: !!(p.ws && p.voice) })),
   };
 }
 function send(ws, o) { if (ws && ws.readyState === 1) ws.send(typeof o === 'string' ? o : JSON.stringify(o)); }
@@ -86,7 +87,7 @@ function startRace(room) {
   for (const p of room.players.values()) { p.fin = 0; p.racing = on.includes(p); }
   pickHost(room);
   const host = room.players.get(room.host);
-  for (const p of room.players.values()) if (p.ws) send(p.ws, { t: 'start', grid, host: host ? host.id : null, seed: Math.floor(Math.random() * 1e9) });
+  for (const p of room.players.values()) if (p.ws) send(p.ws, { t: 'start', grid, track: room.track, host: host ? host.id : null, seed: Math.floor(Math.random() * 1e9) });
   room.raceTimer = setTimeout(() => endRace(room), RACE_MAX);
   broadcast(room);
 }
@@ -113,7 +114,7 @@ function joinRoom(ws, room, pref, stillRacing) {
   let p = room.players.get(ws.key);
   if (p) { // reconexão
     if (p.ws && p.ws !== ws) { try { p.ws.close(4000, 'outra aba'); } catch (e) { } }
-    p.ws = ws; p.name = ws.name || p.name; clearTimeout(p.dropTimer);
+    p.ws = ws; p.voice = false; p.name = ws.name || p.name; clearTimeout(p.dropTimer);
     if (room.phase === 'race' && p.racing && !stillRacing) p.racing = false; // voltou sem a corrida aberta: espera a próxima
   } else {
     if (room.players.size >= MAX) return send(ws, { t: 'err', msg: 'Essa sala já está cheia (6 jogadores).' });
@@ -139,7 +140,7 @@ function leaveRoom(ws, dropNow) {
 setInterval(() => { const now = Date.now(); for (const [c, r] of rooms) if (r.emptySince && now - r.emptySince > 60000) { clearTimeout(r.startTimer); clearTimeout(r.raceTimer); clearTimeout(r.overTimer); rooms.delete(c); } }, 15000);
 
 /* ---------------- WebSocket ---------------- */
-const wss = new WebSocketServer({ server, path: '/ws', maxPayload: 16 * 1024 });
+const wss = new WebSocketServer({ server, path: '/ws', maxPayload: 64 * 1024 });
 wss.on('connection', ws => {
   ws.alive = true; ws.budget = 80; ws.on('pong', () => ws.alive = true);
   ws.on('message', raw => {
@@ -173,6 +174,11 @@ wss.on('connection', ws => {
         me.c = m.c; return broadcast(room);
       }
       case 'ready': me.ready = !!m.v; broadcast(room); return checkStart(room);
+      case 'track': {
+        // só o anfitrião escolhe a pista, e só antes da largada
+        if (room.phase !== 'lobby' || room.host !== me.key || !TRACK_IDS.includes(m.v) || room.startAt) return;
+        room.track = m.v; return broadcast(room);
+      }
       case 'st': case 'pw': case 'box': {
         if (room.phase !== 'race' || !me.racing) return;
         // cada aparelho só fala pelos karts que controla: o seu e, se for anfitrião, as IAs
@@ -182,6 +188,13 @@ wss.on('connection', ws => {
         else if (m.t === 'pw') { if (m.d && may(m.d.by)) relay(room, ws.key, { t: 'pw', d: m.d }); }
         else relay(room, ws.key, { t: 'box', i: m.i | 0 });
         return;
+      }
+      case 'voice': me.voice = !!m.v; return broadcast(room);
+      case 'rtc': {
+        // sinalização do chat de voz (WebRTC): só repassa para alguém da mesma sala
+        const to = [...room.players.values()].find(p => p.id === m.to);
+        if (!to || !to.ws || to === me || !m.d || typeof m.d !== 'object') return;
+        return send(to.ws, { t: 'rtc', from: me.id, d: m.d });
       }
       case 'fin': {
         if (room.phase !== 'race' || !me.racing || me.fin) return;
