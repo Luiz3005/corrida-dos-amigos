@@ -1,0 +1,19 @@
+FAROESTE SEM LEI — créditos e licenças dos materiais usados nesta pista
+
+Kit de trem: "Train Kit" de Kenney (www.kenney.nl) — licença CC0 (domínio público).
+  Arquivo original da licença: LICENSE-kenney-train-kit.txt. A pintura de Velho Oeste
+  (vinho, verde-escuro, madeira, ferro, latão, poeira e ferrugem), a chaminé em funil,
+  o sino, o farol, o limpa-trilhos e as rodas raiadas foram feitos aqui em cima do modelo.
+
+Texturas Poly Haven (polyhaven.com) — licença CC0: sandstone_cracks, mud_cracked_dry_03,
+  aerial_mud_1, dirt_floor, roof_planks, wood_planks, brown_planks_04,
+  weathered_brown_planks, wood_peeling_paint_weathered, raw_plank_wall,
+  dry_branches_medium_01, wooden_crate_02 (só as texturas; os .blend não foram usados).
+Texturas rooftop_0008 e tiles_0035: pacotes enviados pelo usuário (telhados e cerâmica).
+
+Arte de referência e sprites (fachadas, céu, estratos, cachoeira, estátua, xerife,
+  bandido, cowboy, galinha, urubu, props do deserto): pacote "Faroeste Sem Lei" do usuário.
+  O mockup de direção de arte NÃO faz parte do jogo.
+
+Música: trilha country original composta e sintetizada para o jogo (sem samples).
+Estátua do Jegue JAG: malha original montada no próprio jogo; sem nome, marca ou logo de terceiros.
