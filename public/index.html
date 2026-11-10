@@ -288,27 +288,30 @@ body.touch #board li:nth-child(n+5):not(.me){display:none}
 .lbtop a.pill{text-decoration:none}
 .wa{background:#1f8f4e!important;border-color:#37c46f!important}
 .lbstage{flex:1;min-height:0;display:grid;place-items:center;container-type:size}
-.scene{position:relative;overflow:hidden;width:min(100cqw,calc(100cqh * 1672 / 941));aspect-ratio:1672/941;max-width:100%;background:#32231d url(assets/lobby/sala.jpg) center/100% 100% no-repeat;border-radius:10px;font-family:Inter,system-ui,'Segoe UI',Arial,sans-serif;container-type:inline-size}
-.tv{position:absolute;left:41.2%;top:24.1%;width:27.7%;height:31.4%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5%;padding:2.2%;z-index:2;box-sizing:border-box;background:linear-gradient(160deg,#101c3fe8,#09162be8 73%,#081123ed);border:max(1px,.25cqw) solid #627fa5;border-radius:2%;box-shadow:0 0 1cqw #061328,0 0 2.4cqw #2b72c499,inset 0 0 1.6cqw #5fb6ff3a;text-align:center;color:#f8f4ed}
+.scene{position:relative;overflow:hidden;width:min(100cqw,calc(100cqh * 1672 / 941));aspect-ratio:1672/941;max-width:100%;background:#32231d url(assets/lobby/sala8.jpg) center/100% 100% no-repeat;border-radius:10px;font-family:Inter,system-ui,'Segoe UI',Arial,sans-serif;container-type:inline-size}
+.tv{position:absolute;left:41.6%;top:25.4%;width:27%;height:21.6%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3.5%;padding:1.6% 2%;z-index:2;box-sizing:border-box;background:linear-gradient(160deg,#101c3fe8,#09162be8 73%,#081123ed);border:max(1px,.25cqw) solid #627fa5;border-radius:2%;box-shadow:0 0 1cqw #061328,0 0 2.4cqw #2b72c499,inset 0 0 1.6cqw #5fb6ff3a;text-align:center;color:#f8f4ed}
 .tv::after{content:"";position:absolute;inset:2%;pointer-events:none;background:linear-gradient(125deg,#fff2,transparent 31%)}
 .tvt{display:flex;gap:.5em;align-items:center;width:100%;font-size:1.75cqw;font-weight:900;white-space:nowrap;text-shadow:0 0 .8cqw #52aef7}
 .tvt b{margin-left:auto;font-size:.85em;color:#f6cc81}
 .tvcode{font-size:1cqw;font-weight:800;color:#9cc3f5;letter-spacing:.1em}
 .tvcode span{font-size:1.5em;color:#fff;letter-spacing:.25em;margin-left:.3em}
 #tvstatus{font-size:1.15cqw;font-weight:800;color:#c1d9fc}
-#tvslots{display:flex;gap:2%;width:100%;height:24%;justify-content:center}
-.tvs{width:14.2%;height:100%;display:grid;place-items:center;border:1px solid #72a9d6b3;border-radius:8%;font-size:1.4cqw;font-weight:900;color:#b5d5fa;background:#142f4b}
+#tvslots{display:flex;gap:1.6%;width:100%;height:22%;justify-content:center}
+.tvs{width:10.6%;height:100%;display:grid;place-items:center;border:1px solid #72a9d6b3;border-radius:8%;font-size:1.4cqw;font-weight:900;color:#b5d5fa;background:#142f4b}
 .tvs.on{border-color:#ffd9a5;background:#1e4764}
 .tvs.ready{border-color:#70e8b9;color:#9cf9d5}
 #tvready{color:#9cb4da;font-weight:700;font-size:.9cqw}
 #lbcast{position:absolute;inset:0;z-index:4;pointer-events:none}
-.actor{position:absolute;transform:translate(-50%,-100%);display:flex;flex-direction:column;align-items:center;justify-content:flex-end;--c:#eeae6d;animation:enter .5s cubic-bezier(.2,1.4,.4,1)}
-@keyframes enter{0%{opacity:0;transform:translate(-50%,-80%) scale(.7)}100%{opacity:1;transform:translate(-50%,-100%) scale(1)}}
-.actor .ground{position:absolute;bottom:-1.5%;left:50%;width:70%;height:5%;transform:translateX(-50%);border-radius:50%;background:#0007;filter:blur(.3cqw)}
-.actor .spr{position:relative;height:100%;width:auto;max-width:none;filter:drop-shadow(0 .3cqw .2cqw #000b)}
+.actor{position:absolute;--c:#eeae6d;animation:sitin .45s cubic-bezier(.2,1.4,.4,1);transform-origin:50% 100%}
+@keyframes sitin{0%{opacity:0}100%{opacity:1}}
+.actor.swap .spr{animation:swap .35s ease-out}
+@keyframes swap{0%{opacity:0}100%{opacity:1}}
+.actor.hop .spr{animation:hop .6s ease-out}
+@keyframes hop{0%,100%{filter:none}35%{filter:brightness(1.35) drop-shadow(0 0 1cqw #70ffbc)}}
+.actor .spr{position:absolute;inset:0;width:100%;height:100%;max-width:none}
 .actor.off .spr{opacity:.45;filter:grayscale(.7)}
-.actor .tag{position:absolute;left:50%;top:101%;z-index:2;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;white-space:nowrap;filter:drop-shadow(0 2px 3px #000a)}
-.actor .nick{display:block;max-width:16cqw;overflow:hidden;text-overflow:ellipsis;padding:.25em .8em;border:1px solid var(--c);border-radius:12px;background:#140e22ed;font-size:1.15cqw;font-weight:900;color:#fff}
+.actor .tag{position:absolute;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;white-space:nowrap;filter:drop-shadow(0 2px 3px #000a);pointer-events:none}
+.actor .nick{display:block;max-width:12cqw;overflow:hidden;text-overflow:ellipsis;padding:.25em .8em;border:1px solid var(--c);border-radius:12px;background:#140e22ed;font-size:1cqw;font-weight:900;color:#fff}
 .actor.me .nick{background:#3a2a08;border-color:#ffd179}
 .actor .sub{font-weight:900;color:var(--c);font-size:.78cqw;text-shadow:0 2px 2px #000;margin-top:.25em}
 .actor.ready .nick{box-shadow:0 0 1.3cqw #44c38f88;border-color:#70ffbc}
@@ -360,7 +363,7 @@ body.online #pausebtn{display:none}
     <div class="tnew"><span>Pista nova</span><b>Faroeste Sem Lei</b></div>
     <nav class="tbtns" aria-label="Menu principal">
       <button id="start" class="t3 play"><i aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M15 9l25 15-25 15z" fill="currentColor"/></svg></i><span>Jogar</span><small>Piloto e pista</small></button>
-      <button id="mpbtn" class="t3 multi"><i aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="17" cy="16" r="7" fill="currentColor"/><path d="M4 38c0-8 6-13 13-13s13 5 13 13" fill="currentColor"/><circle cx="33" cy="14" r="6" fill="currentColor" opacity=".7"/><path d="M27 24c8-2 17 3 17 13h-11" fill="currentColor" opacity=".7"/></svg></i><span>Multiplayer</span><small>Até 6 amigos online</small></button>
+      <button id="mpbtn" class="t3 multi"><i aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="17" cy="16" r="7" fill="currentColor"/><path d="M4 38c0-8 6-13 13-13s13 5 13 13" fill="currentColor"/><circle cx="33" cy="14" r="6" fill="currentColor" opacity=".7"/><path d="M27 24c8-2 17 3 17 13h-11" fill="currentColor" opacity=".7"/></svg></i><span>Multiplayer</span><small>Até 8 amigos online</small></button>
       <button id="optbtn" class="t3 opt optopen"><i aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 15a9 9 0 100 18 9 9 0 000-18zm19 12v-6l-5-1a15 15 0 00-2-4l3-4-4-4-4 3a15 15 0 00-4-2l-1-5h-6l-1 5a15 15 0 00-4 2l-4-3-4 4 3 4a15 15 0 00-2 4l-5 1v6l5 1a15 15 0 002 4l-3 4 4 4 4-3a15 15 0 004 2l1 5h6l1-5a15 15 0 004-2l4 3 4-4-3-4a15 15 0 002-4z" fill="currentColor"/></svg></i><span>Opções</span><small>Volume e voz</small></button>
     </nav>
     <small class="thint">Enter para jogar</small>
@@ -467,7 +470,7 @@ body.online #pausebtn{display:none}
 <section id="mp" class="screen gut" hidden>
   <div class="mpbox">
     <h2>Multijogador</h2>
-    <p>Até 6 amigos na mesma sala. A corrida começa quando todo mundo der pronto, e os pilotos que sobrarem correm com a IA.</p>
+    <p>Até 8 amigos na mesma sala, um em cada cadeira. A corrida começa quando todo mundo der pronto, e os pilotos que sobrarem correm com a IA.</p>
     <label for="mpname">Seu nome<input id="mpname" maxlength="16" autocomplete="nickname" placeholder="Como os amigos te chamam"></label>
     <button class="go blue" id="mpcreate">Criar sala</button>
     <div class="mpor">ou entre numa sala</div>
@@ -492,7 +495,7 @@ body.online #pausebtn{display:none}
   <div class="lbstage gut">
     <div class="scene" aria-label="Sala de espera">
       <div class="tv" aria-live="polite">
-        <div class="tvt"><span>◎ SALA ONLINE</span><b id="tvcount">0/6</b></div>
+        <div class="tvt"><span>◎ SALA ONLINE</span><b id="tvcount">0/8</b></div>
         <div class="tvcode">CÓDIGO<span id="tvcode">----</span></div>
         <div id="tvstatus">Aguardando jogadores…</div>
         <div id="tvslots"></div>
@@ -537,7 +540,7 @@ const CHARS = [
     powerDesc: 'Uma boia de patinho envolve o kart e segura o próximo ataque.',
     kart: 'Kart tropical preto com flores vermelhas, coroa dourada e patinho.', stats: { spd: 4, acc: 3, hdl: 4 } },
   { id: 'libelula', name: 'Libélula Man', short: 'Libélula', color: '#9be03a', power: 'Voo Rasante', powerId: 'fly', icon: 'rastro-brilho',
-    powerDesc: 'Impulso de velocidade voando baixo, por cima de redemoinhos e ataques.',
+    powerDesc: 'Voo rasante por cima de ataques e redemoinhos, um pouco mais rápido. No ar ele não pega caixas.',
     kart: 'Bólido verde-limão com faróis de olho de libélula.', stats: { spd: 3, acc: 5, hdl: 3 } },
   { id: 'saci', name: 'Saci', short: 'Saci', color: '#e2382d', power: 'Redemoinho Travesso', powerId: 'whirl', icon: 'vento',
     powerDesc: 'Manda um redemoinho no rival mais próximo: ele roda e perde velocidade.',
@@ -549,7 +552,7 @@ const CHARS = [
     powerDesc: 'Uma onda corre pela pista, empurra e desacelera quem está à frente.',
     kart: 'Golfinho azul com ondas na frente e tridente dourado.', stats: { spd: 4, acc: 4, hdl: 3 } },
   { id: 'valdumiru', name: 'Valdumiru Smith', short: 'Valdumiru', color: '#c9803f', power: 'Laço do Texas', powerId: 'lasso', icon: 'espiral-brilho',
-    powerDesc: 'Laça o rival da frente: ele perde velocidade e o cowboy ganha um impulso.',
+    powerDesc: 'Laça o rival da frente e puxa: ele fica bem lento até o cowboy encostar, e aí o cowboy ganha um impulso curto para passar.',
     kart: 'Carroça de madeira com lanternas, cordas e estrela de xerife.', stats: { spd: 5, acc: 2, hdl: 4 } },
   { id: 'jiujitsu', name: 'Lutador de Jiu-Jitsu', short: 'Jiu-Jitsu', color: '#f2f2f2', power: 'Defesa de Campeão', powerId: 'guard', icon: 'brilho',
     powerDesc: 'Guarda fechada: bloqueia ataques por alguns segundos e sai com um impulso.',
@@ -1052,7 +1055,7 @@ function makeRacer(id, slot, isPlayer) {
     x: TR.PX[i0] + TR.SX[i0] * lat, z: TR.PZ[i0] + TR.SZ[i0] * lat, y: 0, vy: 0, gy: 0, heading: TR.ANG[i0],
     speed: 0, steer: 0, idx: i0, lat, lap: -1, prog: 0, finished: false, finishTime: 0,
     maxSpeed: 30 + c.stats.spd * 1.05, accel: 9 + c.stats.acc * 1.7, handling: 1.5 + c.stats.hdl * 0.17,
-    boost: 0, slow: 0, spin: 0, fly: 0, blind: 0, shield: 0, guard: 0, drifting: false, driftDir: 0, driftT: 0, driftYaw: 0, power: false,
+    boost: 0, slow: 0, spin: 0, fly: 0, tow: 0, towBy: null, powerCD: 0, blind: 0, shield: 0, guard: 0, drifting: false, driftDir: 0, driftT: 0, driftYaw: 0, power: false,
     lane: (Math.random() - 0.5) * 8, seed: Math.random() * 10, aiTimer: 2, wallCD: 0, wrongT: 0, air: false, bump: 0, landT: 0, hazCD: 0,
     onSC: false, scPlan: false, scDecided: -1, lapTimes: [], lapStart: 0, rubber: 1,
     remote: false, human: isPlayer, pid: null, pname: '', net: null,
@@ -1074,6 +1077,7 @@ function hitRacer(o, by, kind, opts) {
   if (kind === 'spin') { o.spin = opts.t || 1.2; o.boost = 0; o.drifting = false; o.speed *= 0.75; }
   else if (kind === 'slow') { o.slow = Math.max(o.slow, opts.t || 2); o.speed *= opts.k || 0.75; }
   else if (kind === 'blind') { o.blind = Math.max(o.blind, opts.t || 2.3); }
+  else if (kind === 'tow') { o.tow = opts.t || 2; o.towBy = by; o.boost = 0; o.drifting = false; o.speed *= 0.8; }
   if (opts.push) { o.x += opts.push[0]; o.z += opts.push[1]; }
   if (o.isPlayer) { sfx('hit'); shake(kind === 'blind' ? 0.15 : 0.45); if (by) banner(by.c.short + ' te pegou!'); }
   else if (by && by.isPlayer) banner('Acertou ' + o.c.short + '!');
@@ -1082,10 +1086,12 @@ function hitRacer(o, by, kind, opts) {
 function fxBurst(r, key, tint) { for (let k = 0; k < 6; k++) fxSprite(key, r.x + (Math.random() - .5) * 2, r.y + 1 + Math.random(), r.z + (Math.random() - .5) * 2, 1.4, 0.7, { add: true, tint, vy: 1.5, grow: 1.8 }); }
 function updateRacer(r, dt, inp) {
   const N = TR.N;
-  r.wallCD -= dt; r.hazCD -= dt; r.boost = Math.max(0, r.boost - dt); r.slow = Math.max(0, r.slow - dt); r.fly = Math.max(0, r.fly - dt); r.blind = Math.max(0, r.blind - dt); r.shield = Math.max(0, r.shield - dt); r.guard = Math.max(0, r.guard - dt);
+  r.wallCD -= dt; r.hazCD -= dt; r.boost = Math.max(0, r.boost - dt); r.slow = Math.max(0, r.slow - dt); r.fly = Math.max(0, r.fly - dt); r.tow = Math.max(0, r.tow - dt); r.powerCD = Math.max(0, r.powerCD - dt); r.blind = Math.max(0, r.blind - dt); r.shield = Math.max(0, r.shield - dt); r.guard = Math.max(0, r.guard - dt);
   const scq = scQuery(r.x, r.z); r.onSC = !!(scq && scq.d < SC.W + 0.6);
   const offroad = !r.onSC && Math.abs(r.lat) > TR.HW[r.idx] + CURB && r.fly <= 0;
-  let maxS = r.maxSpeed * (r.isPlayer ? 1 : game.aiMul * r.rubber) * (r.boost > 0 ? 1.38 : 1) * (r.slow > 0 ? 0.58 : 1) * (offroad ? 0.5 : 1) * (r.fly > 0 ? 1.12 : 1) * (r.blind > 0 && !r.isPlayer ? 0.88 : 1);
+  let maxS = r.maxSpeed * (r.isPlayer ? 1 : game.aiMul * r.rubber) * (r.boost > 0 ? 1.38 : 1) * (r.slow > 0 ? 0.58 : 1) * (offroad ? 0.5 : 1) * (r.fly > 0 ? 1.2 : 1) * (r.blind > 0 && !r.isPlayer ? 0.88 : 1);
+  // laçado: o cowboy puxa — o rival fica bem mais lento que ele até ser alcançado
+  if (r.tow > 0 && r.towBy) { const gap = (r.prog - r.towBy.prog) * TR.SP; if (gap > 1.5) maxS = Math.min(maxS, Math.max(5, Math.abs(r.towBy.speed) * 0.5)); else r.tow = 0; }
   if (r.spin > 0) { r.spin -= dt; r.speed *= Math.pow(0.3, dt); r.drifting = false; inp = { throttle: 0, steer: 0, drift: false }; }
   if (!r.air) {
     if (inp.throttle > 0) { if (r.speed < maxS) r.speed += r.accel * dt * (1.15 - r.speed / (maxS + 1) * 0.6); }
@@ -1191,7 +1197,7 @@ function aiInput(r, dt) {
     if (r.aiTimer <= 0) {
       const pid = r.c.powerId, ahead = rivalAhead(r, 70), near = racers.some(o => o !== r && Math.hypot(o.x - r.x, o.z - r.z) < 13 && o.fly <= 0);
       const behind = racers.some(o => o !== r && r.prog - o.prog > 1 && (r.prog - o.prog) * TR.SP < 30);
-      if (pid === 'stomp') use = near; else if (pid === 'lasso' || pid === 'wave' || pid === 'whirl') use = !!ahead;
+      if (pid === 'stomp') use = near; else if (pid === 'lasso') use = !!rivalAhead(r, 45); else if (pid === 'wave' || pid === 'whirl') use = !!ahead;
       else if (pid === 'dust') use = behind; else if (pid === 'buoy') use = true; else if (pid === 'guard') use = near || Math.random() < 0.2;
       else use = curv < 0.35;
       if (r.aiTimer < -8) use = true;
@@ -1208,13 +1214,13 @@ function nearestRival(r, range) { let best = null, bd = range; for (const o of r
 /* ---------------- poderes ---------------- */
 function usePower(r) {
   if (!r.power || r.spin > 0 || r.remote) return;
-  r.power = false; const pid = r.c.powerId;
+  r.power = false; r.powerCD = 3; const pid = r.c.powerId;
   if (r.isPlayer) { sfx('power'); banner(r.c.power.toUpperCase() + '!'); }
   let t = null;
-  if (pid === 'lasso') t = rivalAhead(r, 80); else if (pid === 'whirl') t = rivalAhead(r, 60) || nearestRival(r, 26);
+  if (pid === 'lasso') t = rivalAhead(r, 48); else if (pid === 'whirl') t = rivalAhead(r, 60) || nearestRival(r, 26);
   // efeitos no próprio piloto (só quem controla o kart aplica)
-  if (pid === 'buoy') r.shield = 14; else if (pid === 'fly') { r.fly = 2.8; r.boost = Math.max(r.boost, 2.8); }
-  else if (pid === 'lasso') r.boost = Math.max(r.boost, 1.2); else if (pid === 'guard') { r.guard = 3.2; r.boost = Math.max(r.boost, 0.8); }
+  if (pid === 'buoy') r.shield = 14; else if (pid === 'fly') { r.fly = 2.1; }
+  else if (pid === 'guard') { r.guard = 3.2; r.boost = Math.max(r.boost, 0.8); }
   else if (pid === 'stomp') { shake(r.isPlayer ? 0.7 : 0.15); r.landT = 0.2; }
   const d = { by: r.id, pid, x: +r.x.toFixed(2), y: +r.y.toFixed(2), z: +r.z.toFixed(2), h: +r.heading.toFixed(3), pg: +r.prog.toFixed(2), t: t ? t.id : null };
   runPower(d);
@@ -1261,7 +1267,7 @@ function lassoFx(r, t, d) {
   const mat = new THREE.MeshBasicMaterial({ map: ropeT, color: '#ffffff', transparent: true });
   const loop = new THREE.Mesh(new THREE.TorusGeometry(1, 0.13, 6, 28), mat);
   const g = new THREE.Group(); g.add(loop);
-  let rope = null, caught = false, blocked = false, ended = false;
+  let rope = null, caught = false, blocked = false, ended = false; r.lassoKick = false;
   const P = new THREE.Vector3(), H = new THREE.Vector3(), L = new THREE.Vector3();
   const hand = () => H.set(r.x + Math.cos(r.heading) * 0.5, r.y + 2.1, r.z - Math.sin(r.heading) * 0.5);
   // ponto à frente quando não há alvo
@@ -1294,7 +1300,7 @@ function lassoFx(r, t, d) {
       if (!caught && s > 0.6) {
         caught = true;
         if (t) {
-          if (!t.remote) blocked = !hitRacer(t, r, 'slow', { t: 2.5, k: 0.7 });
+          if (!t.remote) blocked = !hitRacer(t, r, 'tow', { t: T_PULL + 0.4 }); else blocked = t.guard > 0 || t.shield > 0 || t.fly > 0;
           for (let q = 0; q < 8; q++) fxSprite(blocked ? 'estouro' : 'poeira', P.x + (Math.random() - .5) * 2.5, P.y + 0.5 + Math.random(), P.z + (Math.random() - .5) * 2.5, blocked ? 1.2 : 1.5, 0.6, { grow: 2, add: blocked });
           if (!blocked) { if (r.isPlayer) banner('LAÇOU ' + (t.human && t.pname ? t.pname : t.c.short).toUpperCase() + '!'); if (r.isPlayer || t.isPlayer) sfx('hit'); }
         }
@@ -1302,6 +1308,8 @@ function lassoFx(r, t, d) {
     } else { // corda esticada puxando o rival
       const s = (e - T_SPIN - T_FLY - T_DROP) / T_PULL; tgt();
       if (!t || blocked) { loop.position.y = Math.max(0.05, loop.position.y - 0.15); rope.visible = s < 0.4; mat.opacity = 1 - s; return; }
+      // depois de puxar até perto, o cowboy ganha um impulso curto para passar o laçado
+      if (!r.remote && !r.lassoKick && (s > 0.75 || (t.prog - r.prog) * TR.SP < 2.5)) { r.lassoKick = true; r.boost = Math.max(r.boost, 0.75); if (r.isPlayer) sfx('boost'); }
       const wob = Math.sin(e * 18) * 0.12;
       loop.position.set(P.x, P.y + 0.9 + wob * 0.3, P.z); loop.rotation.set(Math.PI / 2, 0, e * 2); loop.scale.setScalar(1.05);
       L.set(P.x, P.y + 1.0, P.z); setRope(H, L, -0.15 + wob, 1);
@@ -1341,9 +1349,9 @@ function updatePickups(dt) {
   world.boxes.forEach(b => {
     b.t = Math.max(0, b.t - dt); b.m.visible = b.t <= 0; b.m.rotation.set(game.time * 0.9 + b.ph, game.time * 1.3 + b.ph, 0); b.m.position.y = 1.3 + b.y + Math.sin(game.time * 2 + b.ph) * 0.2;
     if (b.t > 0) return;
-    for (const r of racers) if (!r.remote && Math.abs(r.x - b.x) < 1.8 && Math.abs(r.z - b.z) < 1.8 && r.y < b.y + 2.4) {
+    for (const r of racers) if (!r.remote && r.fly <= 0 && Math.abs(r.x - b.x) < 1.8 && Math.abs(r.z - b.z) < 1.8 && r.y < b.y + 2.4) {
       b.t = 3; if (NET.inRace) netSend({ t: 'box', i: world.boxes.indexOf(b) }); for (let k = 0; k < 5; k++) fxSprite('brilho', b.x + (Math.random() - .5) * 2, 1.4 + b.y + Math.random(), b.z + (Math.random() - .5) * 2, 0.9, 0.5, { add: true, vy: 2 });
-      if (!r.power) { r.power = true; r.aiTimer = 1 + Math.random() * 3; if (r.isPlayer) sfx('item'); }
+      if (!r.power && r.powerCD <= 0) { r.power = true; r.aiTimer = 1 + Math.random() * 3; if (r.isPlayer) sfx('item'); }
       break;
     }
   });
@@ -1770,9 +1778,15 @@ function frame(ts) {
    Cada aparelho controla o próprio kart; o anfitrião da sala controla as IAs.
    O servidor só organiza a sala e repassa as mensagens.
    ========================================================= */
-const MAX_ROOM = 6;
-// sala do pacote "Os Improváveis Kart": 6 lugares em pé diante dos bancos (percentuais do cenário 1672×941)
-const LOBBY_SPOTS = [{ x: 13.5, y: 90, size: 41 }, { x: 27.5, y: 88.5, size: 38.5 }, { x: 39, y: 87.5, size: 34 }, { x: 62.5, y: 87.5, size: 34 }, { x: 74, y: 88.5, size: 38.5 }, { x: 87.5, y: 90, size: 41 }];
+const MAX_ROOM = 8;
+// sala de espera com 8 cadeiras
+// sala de 8 cadeiras: coordenadas em pixels da arte 1672×941 (fundo vazio); cada piloto sentado foi recortado da prancha cheia na cadeira de origem
+const LB_W = 1672, LB_H = 941;
+const LB_CHAIRS = [[20, 300, 560, 805], [265, 505, 575, 770], [478, 695, 557, 755], [678, 880, 552, 742], [895, 1078, 553, 740], [1060, 1250, 553, 750], [1225, 1430, 558, 770], [1400, 1650, 565, 800]];
+// cada piloto senta na própria cadeira da arte (recorte com a cadeira, sem redimensionar): x, y, largura, altura, cadeira
+const LB_SIT = { mariposa: [6, 405, 335, 434, 0], majing: [252, 427, 317, 385, 1], libelula: [434, 439, 277, 357, 2], pegrande: [639, 437, 254, 353, 3], saci: [858, 422, 214, 396, 4], mae: [1035, 420, 248, 396, 5], valdumiru: [1216, 424, 244, 385, 6], jiujitsu: [1387, 431, 283, 397, 7] };
+const seatOf = cid => (LB_SIT[cid] || LB_SIT.saci)[4];
+function seatRect(cid) { const m = LB_SIT[cid] || LB_SIT.saci, c = LB_CHAIRS[m[4]]; return { x: m[0], y: m[1], w: m[2], h: m[3], cx: (c[0] + c[1]) / 2, by: c[3] }; }
 const LOBBY_SCALE = { pegrande: 1.04, libelula: .98, jiujitsu: 1.02, mariposa: 1.05, valdumiru: 1, saci: 1, majing: 1, mae: 1.01 };
 const NET = { ws: null, me: null, key: null, name: '', room: null, host: false, inRace: false, sendT: 0, wantCode: null, retry: 0, closing: false, startTimer: null };
 function netKey() { try { let k = localStorage.getItem('cda_netkey'); if (!k || !/^[a-z0-9]{16,40}$/.test(k)) { k = Array.from(crypto.getRandomValues(new Uint8Array(12)), b => b.toString(36).padStart(2, '0')).join('').slice(0, 24); localStorage.setItem('cda_netkey', k); } return k; } catch (e) { return NET.key || (NET.key = Math.random().toString(36).slice(2) + Math.random().toString(36).slice(2)); } }
@@ -1899,16 +1913,18 @@ function setLobbyMsg(t) { const e = $('lbmsg'); if (e) e.textContent = t || ''; 
 function renderLobby() {
   const R = NET.room; if (!R) return;
   const players = R.players.slice(0, MAX_ROOM), bySlot = new Map(players.map(p => [p.slot, p])), me = myLobby();
-  // personagens em pé diante dos bancos
+  // cada jogador sentado na sua cadeira (a vaga é dada pelo servidor e não muda enquanto ele estiver na sala)
   const cast = $('lbcast'); const keep = new Set();
-  for (let i = 0; i < MAX_ROOM; i++) {
-    const p = bySlot.get(i); const sp = LOBBY_SPOTS[i]; if (!p) continue;
-    const c = CH[p.c] || CHARS[0], key = 'a-' + p.id; keep.add(key);
+  for (const p of players) {
+    const c = CH[p.c] || CHARS[0], i = seatOf(c.id), key = 'a-' + p.id, R2 = seatRect(c.id); keep.add(key);
     let el = cast.querySelector(`[data-k="${key}"]`);
-    if (!el) { el = document.createElement('div'); el.className = 'actor'; el.dataset.k = key; el.innerHTML = '<div class="ground"></div><img class="spr" alt="" draggable="false"><div class="tag"><span class="nick"></span><span class="sub"></span></div>'; cast.appendChild(el); }
-    el.style.left = sp.x + '%'; el.style.top = sp.y + '%'; el.style.height = (sp.size * (LOBBY_SCALE[p.c] || 1)) + '%'; el.style.zIndex = String(10 + Math.floor(sp.y)); el.style.setProperty('--c', c.color);
-    const img = el.querySelector('.spr'), src = A + 'lobby/' + c.id + '.webp'; if (img.getAttribute('src') !== src) { img.src = src; img.alt = c.name; }
-    el.classList.toggle('ready', !!p.ready); el.classList.toggle('off', !p.on); el.classList.toggle('me', p.id === NET.me);
+    if (!el) { el = document.createElement('div'); el.className = 'actor'; el.dataset.k = key; el.innerHTML = '<img class="spr" alt="" draggable="false"><div class="tag"><span class="nick"></span><span class="sub"></span></div>'; cast.appendChild(el); }
+    el.style.left = (R2.x / LB_W * 100) + '%'; el.style.top = (R2.y / LB_H * 100) + '%'; el.style.width = (R2.w / LB_W * 100) + '%'; el.style.height = (R2.h / LB_H * 100) + '%';
+    el.style.zIndex = String(10 + i); el.style.setProperty('--c', c.color);
+    const tg = el.querySelector('.tag'); tg.style.left = ((R2.cx - R2.x) / R2.w * 100) + '%'; tg.style.top = ((R2.by - R2.y) / R2.h * 100 + 1) + '%';
+    const img = el.querySelector('.spr'), src = A + 'lobby/sentado/' + c.id + '.webp'; if (img.getAttribute('src') !== src) { img.src = src; img.alt = c.name + ' sentado na cadeira ' + (i + 1); el.classList.remove('swap'); void el.offsetWidth; el.classList.add('swap'); }
+    if (!!p.ready !== el.classList.contains('ready')) { el.classList.toggle('ready', !!p.ready); if (p.ready) { el.classList.remove('hop'); void el.offsetWidth; el.classList.add('hop'); } }
+    el.classList.toggle('off', !p.on); el.classList.toggle('me', p.id === NET.me);
     el.querySelector('.nick').textContent = p.name + (p.id === NET.me ? ' (você)' : '');
     el.querySelector('.sub').textContent = (!p.on ? 'reconectando · ' : p.ready ? '✓ PRONTO · ' : '') + c.name;
   }
@@ -1918,7 +1934,8 @@ function renderLobby() {
   $('tvcount').textContent = n + '/' + MAX_ROOM; $('tvcode').textContent = R.code;
   $('tvstatus').textContent = R.phase === 'race' ? 'Corrida em andamento…' : R.startsIn ? 'Largada em ' + Math.max(1, Math.ceil(R.startsIn / 1000)) + '…' : n === MAX_ROOM ? 'Sala completa!' : n === 1 ? 'Aguardando jogadores…' : 'Aguardando mais jogadores…';
   const slots = $('tvslots'); slots.replaceChildren();
-  for (let i = 0; i < MAX_ROOM; i++) { const p = bySlot.get(i), d = document.createElement('div'); d.className = 'tvs' + (p ? ' on' : '') + (p && p.ready ? ' ready' : ''); d.textContent = p ? (p.ready ? '✓' : String(i + 1)) : '·'; d.title = p ? p.name : 'Vaga livre'; slots.appendChild(d); }
+  const bySeat = new Map(players.map(p => [seatOf(p.c), p]));
+  for (let i = 0; i < MAX_ROOM; i++) { const p = bySeat.get(i), d = document.createElement('div'); d.className = 'tvs' + (p ? ' on' : '') + (p && p.ready ? ' ready' : ''); d.textContent = p ? (p.ready ? '✓' : String(i + 1)) : '·'; d.title = p ? p.name : 'Vaga livre'; slots.appendChild(d); }
   $('tvready').textContent = ready + ' de ' + n + ' prontos · ' + (8 - n) + (8 - n === 1 ? ' vaga vira IA' : ' vagas viram IA');
   if (R.startsIn) { clearTimeout(NET.startTimer); NET.startTimer = setTimeout(() => { if (NET.room === R) { R.startsIn = Math.max(0, R.startsIn - 1000); if (R.startsIn > 0) renderLobby(); } }, 1000); }
   // barra inferior
@@ -1981,7 +1998,7 @@ function boot(hd) {
   });
   requestAnimationFrame(frame);
 }
-window.__game = { NET, step, startRace, toSelect, chooseTrack, ensureTrack, activateTrack, TSTATE, world, camera, scene, renderer, cineCam, camPos, camLook, applyCam, get racers() { return racers; }, get player() { return player; }, game, TR, SC, selectChar, CHARS };
+window.__game = { NET, step, startRace, toSelect, usePower, updateFx, chooseTrack, ensureTrack, activateTrack, TSTATE, world, camera, scene, renderer, cineCam, camPos, camLook, applyCam, get racers() { return racers; }, get player() { return player; }, game, TR, SC, selectChar, CHARS };
 const fontsReady = (document.fonts && document.fonts.load) ? Promise.race([Promise.all([document.fonts.load('72px "Lilita One"'), document.fonts.load('16px "Baloo 2"')]).catch(() => 0), new Promise(r => setTimeout(r, 1800))]) : Promise.resolve();
 const start = data => fontsReady.then(() => boot(data || {}));
 const HOT = window.claude && window.claude.hot;

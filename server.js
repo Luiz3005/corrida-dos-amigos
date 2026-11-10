@@ -2,7 +2,7 @@
 /*
  * Corrida dos Amigos: servidor online
  * - entrega o jogo (pasta public/) e mantém as salas via WebSocket em /ws
- * - até 6 jogadores por sala; a corrida começa quando todos estão prontos
+ * - até 8 jogadores por sala (uma cadeira cada); a corrida começa quando todos estão prontos
  * - o anfitrião (primeiro jogador conectado) controla os pilotos da IA
  */
 const http = require('http');
@@ -13,7 +13,7 @@ const { WebSocketServer } = require('ws');
 const PORT = process.env.PORT || 3000;
 const PUB = path.join(__dirname, 'public');
 const CHARS = ['mariposa', 'majing', 'libelula', 'saci', 'pegrande', 'mae', 'valdumiru', 'jiujitsu'];
-const MAX = 6, START_DELAY = 3000, LOBBY_GRACE = 12000, AFTER_FIRST_FINISH = 75000, RACE_MAX = 8 * 60000;
+const MAX = 8, START_DELAY = 3000, LOBBY_GRACE = 12000, AFTER_FIRST_FINISH = 75000, RACE_MAX = 8 * 60000;
 
 /* ---------------- arquivos do site ---------------- */
 const MIME = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript; charset=utf-8', '.css': 'text/css; charset=utf-8', '.json': 'application/json', '.webmanifest': 'application/manifest+json', '.webp': 'image/webp', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.ico': 'image/x-icon' };
@@ -117,7 +117,7 @@ function joinRoom(ws, room, pref, stillRacing) {
     p.ws = ws; p.voice = false; p.name = ws.name || p.name; clearTimeout(p.dropTimer);
     if (room.phase === 'race' && p.racing && !stillRacing) p.racing = false; // voltou sem a corrida aberta: espera a próxima
   } else {
-    if (room.players.size >= MAX) return send(ws, { t: 'err', msg: 'Essa sala já está cheia (6 jogadores).' });
+    if (room.players.size >= MAX) return send(ws, { t: 'err', msg: 'Essa sala já está cheia (8 jogadores).' });
     const slots = new Set([...room.players.values()].map(p => p.slot)); let slot = 0; while (slots.has(slot)) slot++;
     p = { key: ws.key, id: rid(10), name: ws.name, c: freeChar(room, pref, ws.key), slot, ready: false, ws, fin: 0, racing: false };
     room.players.set(ws.key, p);
